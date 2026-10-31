@@ -1,0 +1,49 @@
+{
+ "sku": "SLP-30",
+ "product": "Sleep Gummies 30ct (NEW)",
+ "window": {
+  "start": "2026-10-28",
+  "end": "2026-10-29",
+  "days": 2,
+  "revenue": 4428.65,
+  "orders": 76,
+  "aov": 58.27,
+  "cvr": 0.0159,
+  "sessions": 4790,
+  "ad_spend": 2229.31,
+  "mer": 1.99,
+  "new_customer_cpa": 45.5,
+  "returning_share": 0.355,
+  "gross_margin": 0.758
+ },
+ "baseline_28d": {
+  "start": "2026-09-30",
+  "end": "2026-10-27",
+  "days": 28,
+  "revenue": 84592.9,
+  "orders": 1411,
+  "aov": 59.95,
+  "cvr": 0.0255,
+  "sessions": 55413,
+  "ad_spend": 23731.6,
+  "mer": 3.56,
+  "new_customer_cpa": 27.06,
+  "returning_share": 0.378,
+  "gross_margin": 0.764
+ },
+ "findings": [
+  "Traffic: 4790 sessions in 48h, +21% vs 28-day daily average.",
+  "CVR: 1.59% vs target 2.50% (-36%).",
+  "AOV: $58.27 vs target $62.00 (-6%).",
+  "Paid efficiency: MER 1.99 vs target 3.0 (28-day baseline 3.56).",
+  "Launch units (SLP-30): 32 vs 90 planned for 48h.",
+  "Unit gross margin on SLP-30: 75% at full price."
+ ],
+ "act_now": [
+  "Traffic is up but conversion is down: the problem is on-site or the offer, not reach. Check PDP load and checkout errors, then message match between the ad and landing page, then price/bundle.",
+  "MER is more than 20% under target: cap spend increases on launch campaigns until CVR recovers; keep best creative live."
+ ],
+ "wait_for_signal": [
+  "Creative fatigue and retention effects need 5-7 days of data before you judge them."
+ ]
+}

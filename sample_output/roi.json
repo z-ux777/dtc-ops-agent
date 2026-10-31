@@ -1,0 +1,36 @@
+{
+ "rows": [
+  {
+   "task": "Answer 'where is my order' tickets",
+   "runs_per_month": 900,
+   "manual_min": 4,
+   "automated_share": 0.7,
+   "hours_saved_per_month": 42.0
+  },
+  {
+   "task": "Weekly KPI scorecard",
+   "runs_per_month": 4,
+   "manual_min": 120,
+   "automated_share": 0.9,
+   "hours_saved_per_month": 7.2
+  },
+  {
+   "task": "Build replenishment/win-back lists",
+   "runs_per_month": 8,
+   "manual_min": 45,
+   "automated_share": 0.9,
+   "hours_saved_per_month": 5.4
+  },
+  {
+   "task": "Launch health check (first 48h)",
+   "runs_per_month": 2,
+   "manual_min": 90,
+   "automated_share": 0.6,
+   "hours_saved_per_month": 1.8
+  }
+ ],
+ "hours_saved_per_month": 56.4,
+ "value_per_month_usd": 1692,
+ "assumed_hourly_cost": 30.0,
+ "note": "Inputs are assumptions to replace with the customer's real volumes during discovery."
+}

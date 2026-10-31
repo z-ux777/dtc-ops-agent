@@ -1,0 +1,42 @@
+[
+ {
+  "sku": "MAG-60",
+  "name": "Magnesium Glycinate 60ct",
+  "price": 34.0,
+  "cogs": 7.5,
+  "days_supply": 30,
+  "launch_date": null
+ },
+ {
+  "sku": "OMG-90",
+  "name": "Omega-3 Fish Oil 90ct",
+  "price": 39.0,
+  "cogs": 9.0,
+  "days_supply": 45,
+  "launch_date": null
+ },
+ {
+  "sku": "COL-30",
+  "name": "Collagen Peptides 30 servings",
+  "price": 49.0,
+  "cogs": 12.0,
+  "days_supply": 30,
+  "launch_date": null
+ },
+ {
+  "sku": "VTD-120",
+  "name": "Vitamin D3+K2 120ct",
+  "price": 29.0,
+  "cogs": 5.0,
+  "days_supply": 120,
+  "launch_date": null
+ },
+ {
+  "sku": "SLP-30",
+  "name": "Sleep Gummies 30ct (NEW)",
+  "price": 32.0,
+  "cogs": 8.0,
+  "days_supply": 30,
+  "launch_date": "2026-10-28"
+ }
+]

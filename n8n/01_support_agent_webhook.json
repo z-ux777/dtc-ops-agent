@@ -1,0 +1,182 @@
+{
+  "name": "DTC Ops Agent - Bilingual support webhook",
+  "nodes": [
+    {
+      "id": "s1",
+      "name": "Support message in",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dtc-support",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "7d1f2c3a-0000-4000-8000-000000000001"
+    },
+    {
+      "id": "s2",
+      "name": "Agent: classify + draft",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8787/webhook/support",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}"
+      }
+    },
+    {
+      "id": "s3",
+      "name": "Needs a human?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "s3c",
+              "leftValue": "={{ $json.route }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "human_review"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "s4",
+      "name": "Build human review task",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -120
+      ],
+      "parameters": {
+        "jsCode": "return items.map(i => ({ json: { queue: 'human_review', ticket: i.json.ticket_id, intent: i.json.intent, language: i.json.language, draft: i.json.reply } }));"
+      }
+    },
+    {
+      "id": "s5",
+      "name": "Mark draft ready for approval",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        120
+      ],
+      "parameters": {
+        "jsCode": "return items.map(i => ({ json: { queue: 'approve_and_send', ticket: i.json.ticket_id, intent: i.json.intent, language: i.json.language, draft: i.json.reply } }));"
+      }
+    },
+    {
+      "id": "s6",
+      "name": "Reply to caller",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        960,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Support message in": {
+      "main": [
+        [
+          {
+            "node": "Agent: classify + draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Agent: classify + draft": {
+      "main": [
+        [
+          {
+            "node": "Needs a human?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs a human?": {
+      "main": [
+        [
+          {
+            "node": "Build human review task",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark draft ready for approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build human review task": {
+      "main": [
+        [
+          {
+            "node": "Reply to caller",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark draft ready for approval": {
+      "main": [
+        [
+          {
+            "node": "Reply to caller",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "active": false
+}

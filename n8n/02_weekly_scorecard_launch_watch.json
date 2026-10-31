@@ -1,0 +1,206 @@
+{
+  "name": "DTC Ops Agent - Weekly scorecard + launch watch",
+  "nodes": [
+    {
+      "id": "w1",
+      "name": "Every Monday 8am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "w2",
+      "name": "Get weekly scorecard",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "http://127.0.0.1:8787/report/weekly",
+        "options": {}
+      }
+    },
+    {
+      "id": "w3",
+      "name": "Run 48h launch check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8787/launch/check",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"sku\":\"SLP-30\",\"hours\":48}"
+      }
+    },
+    {
+      "id": "w4",
+      "name": "Write the summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const sc = $('Get weekly scorecard').first().json; const lc = $json; const tw = sc.this_week;\nconst text = [`Week ${tw.start} to ${tw.end}: revenue $${tw.revenue}, ${tw.orders} orders, AOV $${tw.aov}, CVR ${(tw.cvr*100).toFixed(2)}%, MER ${tw.mer}.`, sc.flags.length ? 'Flags: ' + sc.flags.join('; ') : 'No flags.', `Launch ${lc.product}:`, ...lc.act_now.map(a => '- ' + a)].join('\\n');\nreturn [{ json: { text, flagged: sc.flags.length > 0 || lc.act_now.length > 0 } }];"
+      }
+    },
+    {
+      "id": "w5",
+      "name": "Anything flagged?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        960,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "w5c",
+              "leftValue": "={{ $json.flagged }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "w6",
+      "name": "Post to Slack (draft, disabled)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        -100
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'https://hooks.slack.com/services/REPLACE_ME' }}",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $json.text }) }}"
+      },
+      "disabled": true,
+      "notes": "Disabled on purpose: enable after adding real credentials and approving the send."
+    },
+    {
+      "id": "w7",
+      "name": "No action",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        100
+      ],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Every Monday 8am": {
+      "main": [
+        [
+          {
+            "node": "Get weekly scorecard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get weekly scorecard": {
+      "main": [
+        [
+          {
+            "node": "Run 48h launch check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run 48h launch check": {
+      "main": [
+        [
+          {
+            "node": "Write the summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write the summary": {
+      "main": [
+        [
+          {
+            "node": "Anything flagged?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anything flagged?": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack (draft, disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "active": false
+}

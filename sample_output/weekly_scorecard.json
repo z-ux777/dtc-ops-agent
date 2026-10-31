@@ -1,0 +1,45 @@
+{
+ "this_week": {
+  "start": "2026-10-23",
+  "end": "2026-10-29",
+  "days": 7,
+  "revenue": 19127.2,
+  "orders": 330,
+  "aov": 57.96,
+  "cvr": 0.0225,
+  "sessions": 14661,
+  "ad_spend": 6574.97,
+  "mer": 2.91,
+  "new_customer_cpa": 31.16,
+  "returning_share": 0.361,
+  "gross_margin": 0.762
+ },
+ "last_week": {
+  "start": "2026-10-16",
+  "end": "2026-10-22",
+  "days": 7,
+  "revenue": 21714.65,
+  "orders": 354,
+  "aov": 61.34,
+  "cvr": 0.0255,
+  "sessions": 13907,
+  "ad_spend": 5932.73,
+  "mer": 3.66,
+  "new_customer_cpa": 28.25,
+  "returning_share": 0.407,
+  "gross_margin": 0.763
+ },
+ "wow_change": {
+  "revenue": -0.119,
+  "orders": -0.068,
+  "aov": -0.055,
+  "cvr": -0.118,
+  "mer": -0.205,
+  "new_customer_cpa": 0.103,
+  "gross_margin": -0.001
+ },
+ "flags": [
+  "CVR down 12% week over week",
+  "MER down 20% week over week"
+ ]
+}

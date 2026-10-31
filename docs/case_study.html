@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@page { size: Letter; margin: 0.55in; }
+body { font-family: Helvetica, Arial, sans-serif; font-size: 10.2pt; color:#1b1b1b; line-height:1.38; }
+h1 { font-size: 19pt; margin:0 0 2px; } h2 { font-size: 11.5pt; margin:12px 0 4px; color:#0b4f6c; border-bottom:1px solid #cfdde4; padding-bottom:2px; }
+.sub { color:#555; margin-bottom:8px; } ul { margin:3px 0 3px 18px; padding:0; } li { margin:1px 0; }
+table { border-collapse: collapse; width:100%; font-size:9.3pt; } td,th { border:1px solid #d6dee2; padding:3px 6px; text-align:left; vertical-align:top; }
+th { background:#eef4f7; } .two { display:flex; gap:16px; } .two > div { flex:1; }
+code { background:#f3f3f3; padding:0 3px; font-size:9pt; } .foot { color:#666; font-size:8.6pt; margin-top:8px; }
+</style></head><body>
+<h1>Case study: DTC Ops Agent</h1>
+<div class="sub">An AI operations layer for a Shopify + Klaviyo style brand, wired into n8n. Built by Zvi Adler. Runs on mock data, no paid APIs.</div>
+<h2>The problem</h2>
+<p>A DTC brand with a small team loses hours every week to the same work: pulling a KPI scorecard, figuring out why a launch is soft, building reorder lists, and answering "where is my order" in two languages. I run a DTC supplement brand where this is weekly work. This project packages it as a clean, testable system on mock data.</p>
+<h2>What it does</h2>
+<table><tr><th>Module</th><th>Output on the mock store</th></tr>
+<tr><td>Weekly KPI scorecard</td><td>Revenue $19,127, 330 orders, AOV $57.96, CVR 2.25%, MER 2.91, flags written in plain English</td></tr>
+<tr><td>48h launch check</td><td>Traffic +21% but CVR 1.59% vs 2.50% target, so it says: fix on-site and offer first, hold spend increases, wait 5-7 days before judging creative fatigue</td></tr>
+<tr><td>Replenishment / win-back</td><td>425 customers due to run out within 7 days, Klaviyo event payloads for consented profiles only</td></tr>
+<tr><td>Bilingual support agent</td><td>9 sample tickets in English and Spanish: language, intent, order lookup, draft reply; 4 routed to a human (refunds, cancellations, a medication question)</td></tr>
+<tr><td>Automation ROI</td><td>About 56.4 hours a month saved on stated assumptions, ready to replace with a client's real volumes</td></tr></table>
+<div class="two"><div>
+<h2>How it is built</h2>
+<ul><li>Python standard library only; clone and run in a minute</li>
+<li>Small HTTP API (<code>/webhook/support</code>, <code>/report/weekly</code>, <code>/launch/check</code>, <code>/segments/replenishment</code>)</li>
+<li>Three importable n8n workflows: support webhook, Monday scorecard alert, daily Klaviyo replenishment</li>
+<li>Optional OpenRouter LLM for wording, with a safe offline fallback</li>
+<li>14 automated tests, including the API and n8n workflow wiring</li></ul>
+</div><div>
+<h2>Guardrails</h2>
+<ul><li>Every send, refund and Klaviyo push goes to an approval queue first</li>
+<li>No medical advice; health questions always go to a person</li>
+<li>Consent flags respected before any marketing event</li>
+<li>Rules decide routing; the model only polishes wording</li>
+<li>Keys are placeholders; live nodes ship disabled</li></ul>
+</div></div>
+<h2>How I would roll it out at a real brand</h2>
+<ul><li><b>Week 1:</b> connect Shopify and Klaviyo read access, run in shadow mode, compare drafts against what the team actually sent.</li>
+<li><b>Week 2-3:</b> turn on auto-send only for intents with a clean record (order status), keep humans on money and health topics.</li>
+<li><b>Week 4:</b> scorecard and launch alerts in Slack; measure hours saved and first-response time against the baseline.</li></ul>
+<div class="foot">Run: <code>python cli.py demo</code> and <code>python tests/test_all.py</code>. All numbers on this page come from generated mock data, not a real store. Contact: adlershachar31@gmail.com</div>
+</body></html>

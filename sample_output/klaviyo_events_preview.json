@@ -1,0 +1,92 @@
+[
+ {
+  "data": {
+   "type": "event",
+   "attributes": {
+    "properties": {
+     "sku": "MAG-60",
+     "product": "Magnesium Glycinate 60ct",
+     "runout_date": "2026-10-29",
+     "language": "es",
+     "last_order": "#5493"
+    },
+    "metric": {
+     "data": {
+      "type": "metric",
+      "attributes": {
+       "name": "Replenishment Due"
+      }
+     }
+    },
+    "profile": {
+     "data": {
+      "type": "profile",
+      "attributes": {
+       "email": "customer0015@example.com"
+      }
+     }
+    }
+   }
+  }
+ },
+ {
+  "data": {
+   "type": "event",
+   "attributes": {
+    "properties": {
+     "sku": "OMG-90",
+     "product": "Omega-3 Fish Oil 90ct",
+     "runout_date": "2026-10-29",
+     "language": "es",
+     "last_order": "#4774"
+    },
+    "metric": {
+     "data": {
+      "type": "metric",
+      "attributes": {
+       "name": "Replenishment Due"
+      }
+     }
+    },
+    "profile": {
+     "data": {
+      "type": "profile",
+      "attributes": {
+       "email": "customer0087@example.com"
+      }
+     }
+    }
+   }
+  }
+ },
+ {
+  "data": {
+   "type": "event",
+   "attributes": {
+    "properties": {
+     "sku": "OMG-90",
+     "product": "Omega-3 Fish Oil 90ct",
+     "runout_date": "2026-10-29",
+     "language": "en",
+     "last_order": "#4773"
+    },
+    "metric": {
+     "data": {
+      "type": "metric",
+      "attributes": {
+       "name": "Replenishment Due"
+      }
+     }
+    },
+    "profile": {
+     "data": {
+      "type": "profile",
+      "attributes": {
+       "email": "customer0212@example.com"
+      }
+     }
+    }
+   }
+  }
+ }
+]

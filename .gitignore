@@ -1,0 +1,15 @@
+# Large generated mock data (rebuilt automatically on first run by dtc_ops/data.py,
+# or manually with: python3 data/generate_mock_data.py)
+data/customers.json
+data/orders.json
+sample_output/segments.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local secrets and runtime files
+.env
+*.log

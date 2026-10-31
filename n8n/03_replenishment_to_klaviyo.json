@@ -1,0 +1,126 @@
+{
+  "name": "DTC Ops Agent - Replenishment segment to Klaviyo (draft)",
+  "nodes": [
+    {
+      "id": "r1",
+      "name": "Daily 7am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "r2",
+      "name": "Get replenishment segment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "http://127.0.0.1:8787/segments/replenishment",
+        "options": {}
+      }
+    },
+    {
+      "id": "r3",
+      "name": "Build Klaviyo events (consented only)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const due = $json.replenish_due.filter(r => r.email_consent);\nreturn due.map(r => ({ json: { data: { type: 'event', attributes: { properties: { sku: r.sku, product: r.product, runout_date: r.runout_date, language: r.language }, metric: { data: { type: 'metric', attributes: { name: 'Replenishment Due' } } }, profile: { data: { type: 'profile', attributes: { email: r.email } } } } } } }));"
+      }
+    },
+    {
+      "id": "r4",
+      "name": "Klaviyo Create Event (disabled)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://a.klaviyo.com/api/events",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Klaviyo-API-Key REPLACE_WITH_KLAVIYO_PRIVATE_KEY"
+            },
+            {
+              "name": "revision",
+              "value": "2024-10-15"
+            }
+          ]
+        }
+      },
+      "disabled": true,
+      "notes": "Disabled on purpose: enable after adding real credentials and approving the send."
+    }
+  ],
+  "connections": {
+    "Daily 7am": {
+      "main": [
+        [
+          {
+            "node": "Get replenishment segment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get replenishment segment": {
+      "main": [
+        [
+          {
+            "node": "Build Klaviyo events (consented only)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Klaviyo events (consented only)": {
+      "main": [
+        [
+          {
+            "node": "Klaviyo Create Event (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "active": false
+}

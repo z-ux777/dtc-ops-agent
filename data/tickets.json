@@ -1,0 +1,65 @@
+[
+ {
+  "id": "T001",
+  "customer_id": "C3502",
+  "language": "en",
+  "channel": "email",
+  "text": "Where is my order #6635? It's been a week."
+ },
+ {
+  "id": "T002",
+  "customer_id": "C3259",
+  "language": "es",
+  "channel": "chat",
+  "text": "Hola, ¿dónde está mi pedido #6637? Todavía no llega."
+ },
+ {
+  "id": "T003",
+  "customer_id": "C2577",
+  "language": "en",
+  "channel": "email",
+  "text": "I want to reorder the same thing as last time."
+ },
+ {
+  "id": "T004",
+  "customer_id": "C2894",
+  "language": "es",
+  "channel": "chat",
+  "text": "Quiero volver a pedir lo mismo de la última vez, por favor."
+ },
+ {
+  "id": "T005",
+  "customer_id": "C0264",
+  "language": "en",
+  "channel": "email",
+  "text": "Please pause my subscription for a month."
+ },
+ {
+  "id": "T006",
+  "customer_id": "C3502",
+  "language": "es",
+  "channel": "chat",
+  "text": "Necesito cancelar mi suscripción."
+ },
+ {
+  "id": "T007",
+  "customer_id": "C3259",
+  "language": "en",
+  "channel": "email",
+  "text": "My bottle arrived broken, I want a refund."
+ },
+ {
+  "id": "T008",
+  "customer_id": "C2577",
+  "language": "es",
+  "channel": "chat",
+  "text": "Me llegó el producto dañado y quiero un reembolso."
+ },
+ {
+  "id": "T009",
+  "customer_id": "C2894",
+  "language": "en",
+  "channel": "email",
+  "text": "Can I take magnesium with my blood pressure medication?"
+ }
+]
