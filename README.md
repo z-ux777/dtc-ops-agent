@@ -77,20 +77,6 @@ API routes: `GET /health`, `GET /api/orders/<id>`, `GET /report/weekly`, `GET /s
 - **Consent-aware.** Segments carry email/SMS consent and the Klaviyo step filters on it.
 - **Stdlib only.** Clone and run in under a minute, no package installs.
 
-## How it maps to the roles I am applying for
-
-| Company / role | What in this project is relevant |
-|---|---|
-| Snap Supplements, E-Commerce Director | Supplement catalog, subscription-aware replenishment, KPI scorecard for the site P&L, health-claim guardrail in support replies |
-| Blunt Cases, Director of Ecommerce & Growth | The 48h underperforming-launch diagnosis (their interview question), retention segments, weekly growth scorecard |
-| Wildfang, Director of Ecommerce & Growth | Paid + CRM + site KPIs in one scorecard, Klaviyo retention flow, automation that frees a small team |
-| Zapier, Automation Strategist | Use-case discovery to working workflow, ROI model (`roi.py`), human-approval governance, AI agent pattern |
-| n8n, Deployment Strategist | Importable n8n workflows, ROI-ranked automation backlog, ownership via approval queue |
-| Tapcart, Solutions Engineer | Shopify-style order API, webhooks, Klaviyo event spec, an integration a brand's stack would need |
-| Urrly client, AI Automation Engineer | API + webhook integration, LLM with fallback, tests, n8n orchestration |
-| Distill, Implementation Specialist | Onboarding-style setup (mock data, config, runbook), measurable time-to-value |
-| ElevenLabs, Deployment Strategist | Bilingual agent logic and tools that a voice agent would call |
-
 ## Case study
 A one-page case study is in [`docs/case_study.html`](docs/case_study.html) (open it in a browser).
 A PDF version is available in the repo's Releases or on request.
